@@ -1,6 +1,8 @@
 package p2.control;
 
+import p2.factory.PlantFactory;
 import p2.logic.game.Game;
+import p2.logic.objects.*;
 
 public class AddCommand extends Command{
 	
@@ -28,7 +30,9 @@ public class AddCommand extends Command{
 
 	public void execute(Game game, Controller controller) {
 		
-		game.addPlant(controller, this.plant, this.x, this.y);
+		Plant auxplant = PlantFactory.getPlant(this.plant, this.x, this.y, game);
+		
+		game.addPlant(controller, auxplant);
 		
 	}
 

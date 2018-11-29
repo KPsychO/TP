@@ -4,7 +4,7 @@ import p2.util.*;
 
 /** Class "DebugPrinter":
  * 
- *		I dare you to use that view for debbugging purposes. Prints some extra information
+ *		I dare you to use that view for debugging purposes. Prints some extra information
  *
  *  */
 

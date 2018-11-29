@@ -10,7 +10,7 @@ import p2.logic.game.*;
 
 public class PlantsVSZombies {
 
-	/** Well... here is where the nightmare begins... */
+	/** Well... here's where the nightmare begins... */
 	
 	public static void main(String[] args){
 	

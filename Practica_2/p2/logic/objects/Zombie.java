@@ -14,7 +14,7 @@ public abstract class Zombie extends GameObject {
 	public abstract String getSymbol();
 	public abstract int getFreq();
 	
-	/** YEAH, that's a f***ing zombie */
+	/** YEAH, that's a f***ing zombie :O */
 	
 	public boolean isZombie() {
 		

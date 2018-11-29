@@ -13,7 +13,7 @@ public class SuncoinManager {
 	Game game;
 	int suns;
 	
-	/** Creates a new suncion manager with 50 SC */
+	/** Creates a new suncoin manager with 50 SC */
 	
 	public SuncoinManager(Game game){
 		

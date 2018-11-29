@@ -2,7 +2,7 @@ package p2.logic.objects;
 
 /** Class "Plant":
  * 
- *		Object zombie, "the gud guys"
+ *		Object plant, "the gud guys"
  *
  *  */
 
@@ -14,7 +14,7 @@ public abstract class Plant extends GameObject {
 	
 	public abstract void decreaseHP(int dmg);
 	
-	/** Returns "the plant" if it atributes correspond to the user input (AddCommand) */
+	/** Returns "the plant" if it attributes correspond to the user input (AddCommand) */
 	
 	public Plant parse(String plantName) {
 		
@@ -32,7 +32,7 @@ public abstract class Plant extends GameObject {
 		
 	}
 	
-	/** Don't shoot me! I'm not black! (or a zombie) */
+	/** Don't shoot me! I'm not an otaku! (nor a zombie) */
 	
 	public boolean isZombie() {
 		

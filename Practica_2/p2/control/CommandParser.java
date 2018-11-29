@@ -4,13 +4,13 @@ import p2.control.Controller;
 
 /** Class "CommandParser":
  * 
- *		Returns a new command by recieving the user input
+ *		Returns a new command by receiving the user input
  *
  *  */
 
 public class CommandParser {
 	
-	/** List of the avaliable commands */
+	/** List of the available commands */
 	
 	private static Command[] avaliableCommands = {
 			new HelpCommand(),
@@ -23,7 +23,7 @@ public class CommandParser {
 			new PrintModeCommand()
 		};
 	
-	/** Recieves the user input and creates the new command by using the function parse on each of them
+	/** Receives the user input and creates the new command by using the function parse on each of them
 	 * 	returns "NULL" if there wasn't any corresponding command to the input
 	 *  */
 	

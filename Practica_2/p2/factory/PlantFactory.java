@@ -11,7 +11,10 @@ import p2.logic.game.Game;
 
 public class PlantFactory {
 	
-	/** List of avaliable plants */
+	/** 
+	 * List of available plants
+	 * Note: Sorry, I can't English sometimes and i couldn't write the word available correctly during the whole program, everywhere else it's written as "avaliable"
+	 * */
 	
 	private static Plant[] avaliablePlants = {
 			new PPeashooter(),
@@ -20,7 +23,7 @@ public class PlantFactory {
 			new PCherry()
 	};
 	
-	/** recieves the user input and creates a plant acordingly
+	/** Receives the user input and creates a plant accordingly
 	 * 	returns null if the input was incorrect
 	 *  */
 

@@ -18,7 +18,7 @@ public abstract class NoParamsCommand extends Command{
 		
 	}
 	
-	/** Recieves the command name and the controller, if válid, returns the new command assigning the controller */
+	/** Receives the command name and the controller, if valid, returns the new command assigning the controller */
 	
 	public Command parse (String[] commandWords, Controller controller) {
 		

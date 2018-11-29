@@ -5,11 +5,11 @@ import p2.logic.managers.*;
 import p2.logic.objects.*;
 import p2.logic.lists.*;
 import p2.control.*;
-import p2.factory.*;
+import p2.factory.ZombieFactory;
 
 /** Class "Game":
  * 
- *		Unites all the logic of the game. Implements a lot of "acces" funtions so you can use private methods
+ *		Unites all the logic of the game. Implements a lot of "access" functions so you can use private methods
  *
  *  */
 
@@ -25,7 +25,7 @@ public class Game {
 	private GamePrinter GPrinter;
 	private Level level;
 	
-	/** Assigns the starting atributes of the game.
+	/** Assigns the starting attributes of the game.
 	 * 	takes the execution arguments and assigns the seed and difficulty
 	 *  */
 	
@@ -50,10 +50,10 @@ public class Game {
 				
 	}
 	
-	/** Updates the object list by the order the objects were added to the board
-	 * 	If it's the starting turn, prints the seed
-	 * 	Adds a new zombie when corresponds
-	 * 	Increases the cicle count
+	/** Updates the object list by the order the objects were added to the board.
+	 * 	If it's the starting turn, prints the seed.
+	 * 	Adds a new zombie when corresponds.
+	 * 	Increases the cycle count.
 	 *  */
 	
 	public void update (){
@@ -261,63 +261,65 @@ public class Game {
 		}
 	}
 	
-	public void addPlant(Controller controller, String plant, int x, int y) {
+	public void addPlant(Controller controller, Plant plant) {
 		
 		boolean add = true;
-		Plant auxplant;
 		
-		if (add) {
-			
-			if ((x < 0 || x > 6) || (y < 0 || y > 3)) {
-				
-				add = false;
-				System.out.println("[ERROR]: Please, choose a cell IN the board range (0-3 / 0-6).\n");
-				
-			}
-			
-		}
-
-		for (int i = 0; i < this.objectList.getObjectCount(); i++) {
-			
-			if ((this.objectList.getObjectX(i) == x) && (this.objectList.getObjectY(i) == y)) {
-				
-				add = false;
-				System.out.println("[ERROR]: Please, choose an empty cell.\n");
-				
-			}
-			
-		}
+		if (plant != null) {
 		
-		
-		if (add) {
-			
-			auxplant = PlantFactory.getPlant(plant, x, y, this);
-			
-			if (auxplant != null) {
+			if (add) {
 				
-				if (this.SCManager.GetSuns() >= auxplant.getCost()) {
+				if ((plant.getX() < 0 || plant.getX() > 6) || (plant.getY() < 0 || plant.getY() > 3)) {
 					
-						this.DecreaseSC(auxplant.getCost());
-						this.objectList.addPlant(auxplant);
+					add = false;
+					System.out.println("[ERROR]: Please, choose a cell IN the board range (0-3 / 0-6).\n");
+					
+				}
+				
+			}
+	
+			for (int i = 0; i < this.objectList.getObjectCount(); i++) {
+				
+				if ((this.objectList.getObjectX(i) == plant.getX()) && (this.objectList.getObjectY(i) == plant.getY())) {
+					
+					add = false;
+					System.out.println("[ERROR]: Please, choose an empty cell.\n");
+					
+				}
+				
+			}
+			
+			
+			if (add) {
+				
+				if (this.SCManager.GetSuns() >= plant.getCost()) {
 						
-				}
-				else {
-					
-					System.out.print("[ERROR]: No enought suncoins.\n");
-					controller.setNoUpdateGameState();
+							this.DecreaseSC(plant.getCost());
+							this.objectList.addPlant(plant);
+							
+					}
+					else {
+						
+						System.out.print("[ERROR]: No enought suncoins.\n");
+						controller.setNoUpdateGameState();
+						
+					}
 					
 				}
 				
-			}
 			
-			else
-				System.out.println("[ERROR]: Plant name or symbol not recognised.\n");
+			else {
+				
+				controller.setNoPrintGameState();
+				controller.setNoUpdateGameState();
+			}
+		
 		}
 		
 		else {
 			
-			controller.setNoPrintGameState();
-			controller.setNoUpdateGameState();
+			System.out.print("Plant name or symbol not recognised\n");
+			
 		}
 		
 	}
@@ -352,7 +354,6 @@ public class Game {
 		
 		controller.setNoPrintGameState();
 		controller.setNoUpdateGameState();
-		System.out.println(PlantFactory.listAvaliablePlants());
 		
 	}
 	

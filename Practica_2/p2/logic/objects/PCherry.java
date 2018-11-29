@@ -24,6 +24,7 @@ public class PCherry extends Plant {
 		this.game = game;
 		this.symbol = "C";
 		this.name = "cherry";
+		this.dmg = 10;
 		
 	}
 
@@ -43,10 +44,10 @@ public class PCherry extends Plant {
 		
 		else {
 			
-			game.decreaseObjectHP(this.y-1, this.x, this.dmg);
-			game.decreaseObjectHP(this.y+1, this.x, this.dmg);
-			game.decreaseObjectHP(this.y, this.x-1, this.dmg);
-			game.decreaseObjectHP(this.y, this.x+1, this.dmg);
+			game.decreaseObjectHP(this.x-1, this.y, this.dmg);
+			game.decreaseObjectHP(this.x+1, this.y, this.dmg);
+			game.decreaseObjectHP(this.x, this.y-1, this.dmg);
+			game.decreaseObjectHP(this.x, this.y+1, this.dmg);
 			game.deleteObject(this.x, this.y);
 			
 		}

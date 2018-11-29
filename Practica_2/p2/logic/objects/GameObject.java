@@ -4,7 +4,7 @@ import p2.logic.game.*;
 
 /** Class "GameObject":
  * 
- *		Defines some common atributes and method both for plants and zombies
+ *		Defines some common attributes and method both for plants and zombies
  *
  *  */
 
@@ -18,15 +18,15 @@ public abstract class GameObject {
 	protected int y;
 	protected String symbol;
 
-	/** Executes (or not) some actions acording to the cicle */
+	/** Executes (or not) some actions according to the cycle */
 	
 	public abstract void update();
 	
-	/** returns the printable version of the object (Relase version) */
+	/** returns the printable version of the object (Release version) */
 	
 	public abstract String toString();
 	
-	/** returns the printable version of the obejct (""Debug"" version) */
+	/** returns the printable version of the object (""Debug"" version) */
 	
 	public abstract String debugToString();
 	

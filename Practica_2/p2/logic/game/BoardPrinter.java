@@ -15,7 +15,7 @@ public abstract class BoardPrinter {
 	
 	public abstract void boardToString(Game game);
 	
-	/** Transforms the ObjectList list into a printable, bidimensional (on relase mode) board */
+	/** Transforms the ObjectList list into a printable, bidimensional (on release mode) board */
 	
 	public abstract String encodeGame(String[][] board, Game game);
 

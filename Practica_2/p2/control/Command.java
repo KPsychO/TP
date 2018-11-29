@@ -28,11 +28,12 @@ public abstract class Command {
 		
 	}
 	
-	/** Executes the corresponding action in the classs game */
+	/** Executes the corresponding action in class "game" */
 	
 	public abstract void execute (Game game, Controller controller);
 	
-	/** Recieves the input from the user to create a new command with the corresponding info, also assigns the controller*/
+	/** Receives the input from the user to create a new command with the corresponding info, also assigns the controller*/
+	
 	public abstract Command parse (String[] commandWords, Controller controller);
 	
 	/** Generates the HelpCommand output for each of the commands */

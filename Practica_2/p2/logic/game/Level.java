@@ -2,7 +2,7 @@ package p2.logic.game;
 
 /** Class "Level":
  * 
- *		Does naz* things with the given atributes. Some say that it also define the difficulty of the current game.
+ *		Does... interesting... things with the given attributes. Some say that it also define the difficulty of the current game.
  *
  *  */
 
@@ -22,7 +22,7 @@ public enum Level {
 		
 	}
 	
-	/** Sets the difficulty acording to the execution argument */
+	/** Sets the difficulty according to the execution argument */
 	
 	public static Level fromParam(String args) {
 		

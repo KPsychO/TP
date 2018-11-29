@@ -6,9 +6,10 @@ import p2.logic.game.*;
 /** Class "Controller":
  * 
  *		Controls the execution of the game.
- *		Recieves the commands from the user and executes the corresponding actions, calls for the updates of the board and prints the game.
+ *		Receives the commands from the user and executes the corresponding actions, calls for the updates of the board and prints the game.
  *
  *  */
+
 
 public class Controller {
 	
@@ -20,7 +21,7 @@ public class Controller {
 	private Command command;
 	private GamePrinter GPrinter;
 	
-	/** Recieves the game and assigns the default values for the control variables of the game */
+	/** Receives the game and assigns the default values for the control variables of the game */
 	
 	public Controller(Game game) {
 		
@@ -33,8 +34,8 @@ public class Controller {
 		
 	}
 	
-	/** Recieves the command input, calls for the parse of the command and checks if it is a valid input. Then executes the corresponding actions
-	 * 	May or may not print & Update the game
+	/** Receives the command input, calls for the parse of the command and checks if it is a valid input. Then executes the corresponding actions
+	 * 	May or may not print & update the game
 	 * 	Checks if the game keeps going or is ended
 	 *  */
 	
@@ -108,7 +109,7 @@ public class Controller {
 		
 	}
 	
-	/** Recieves the desired printing mode and asigns the new GamePrinter */
+	/** Receives the desired printing mode and assigns the new GamePrinter */
 	
 	public void setPrintMode(String mode) {
 		

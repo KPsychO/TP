@@ -16,7 +16,7 @@ public class ZombieManager {
 	private Random rand;
 	private double freq;
 	
-	/** Creates a new manager acording to the given dificulty */
+	/** Creates a new manager according to the given difficulty */
 	
 	public ZombieManager(Game game, Level level, long seed){
 		
@@ -27,7 +27,7 @@ public class ZombieManager {
 		
 	}
 	
-	/** Returns the zombies remaining (zombies to apear) */
+	/** Returns the zombies remaining (zombies to appear) */
 	
 	public int GetZRemaining() {
 		

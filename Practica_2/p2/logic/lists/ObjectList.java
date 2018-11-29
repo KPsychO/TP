@@ -28,7 +28,7 @@ public class ObjectList {
 		
 	}
 	
-	/** Executes the update method of eacho of the objects inside the list */
+	/** Executes the update method of each of the objects inside the list */
 	
 	public void update() {
 		
@@ -57,12 +57,8 @@ public class ObjectList {
 			
 		}
 		
-		if (found) {
-		
+		if (found)
 			this.list[i].decreaseHP(dmg);
-		
-		}
-		
 		
 	}
 	
@@ -124,7 +120,7 @@ public class ObjectList {
 		
 	}
 	
-	/** Adds the given zombie in the given postition */
+	/** Adds the given zombie in the given position */
 	
 	public void addZombie (Zombie zombie) {
 		

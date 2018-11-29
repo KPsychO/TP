@@ -1,5 +1,6 @@
 package p2.control;
 
+import p2.factory.PlantFactory;
 import p2.logic.game.Game;
 
 public class ListCommand extends NoParamsCommand{
@@ -16,10 +17,9 @@ public class ListCommand extends NoParamsCommand{
 
 	public void execute(Game game, Controller controller) {
 
+		System.out.println(PlantFactory.listAvaliablePlants());
 		game.list(controller);
 		
 	}
 	
-	
-
 }
