@@ -1,5 +1,6 @@
 package p3.control;
 
+import p3.Exceptions.*;
 import p3.factory.PlantFactory;
 import p3.logic.game.Game;
 import p3.logic.objects.*;
@@ -28,15 +29,15 @@ public class AddCommand extends Command{
 		
 	}
 
-	public void execute(Game game, Controller controller) {
+	public void execute(Game game) throws CommandExecuteException {
 		
 		Plant auxplant = PlantFactory.getPlant(this.plant, this.x, this.y, game);
 		
-		game.addPlant(controller, auxplant);
+		game.addPlant(auxplant);
 		
 	}
 
-	public Command parse(String[] commandWords, Controller controller) {
+	public Command parse(String[] commandWords) {
 		
 		if (commandWords.length == 4 && (commandWords[0].equals(AddCommand.name) || commandWords[0].equals(AddCommand.symbol))) {
 			

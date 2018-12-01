@@ -1,6 +1,5 @@
 package p3.control;
 
-import p3.control.Controller;
 import p3.logic.game.Game;
 
 public class ExitCommand extends NoParamsCommand{
@@ -15,9 +14,9 @@ public class ExitCommand extends NoParamsCommand{
 		
 	}
 	
-	public void execute(Game game, Controller controller) {
+	public void execute(Game game) {
 		
-		game.exit(controller);
+		game.exit();
 		
 	}
 

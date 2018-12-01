@@ -2,6 +2,7 @@ package p3.control;
 
 import java.util.*;
 import p3.logic.game.*;
+import p3.Exceptions.*;
 
 /** Class "Controller":
  * 
@@ -32,6 +33,8 @@ public class Controller {
 		this.update = true;
 		this.GPrinter = new RelasePrinter();
 		
+		this.game.setController(this);
+		
 	}
 	
 	/** Receives the command input, calls for the parse of the command and checks if it is a valid input. Then executes the corresponding actions
@@ -41,7 +44,6 @@ public class Controller {
 	
 	public void Run () {
 		
-		String input;
 		String[] command;
 		
 		this.game.update();
@@ -54,14 +56,13 @@ public class Controller {
 			this.print  = true;
 			this.update = true;
 			
-			input = in.nextLine();
-			command = input.toLowerCase().split(" ");
+			command =  in.nextLine().trim().toLowerCase().split("\\s+");
 			
-			this.command = CommandParser.parseCommand(command, this);
+			try {
 			
-			if (this.command != null) {
-				
-				this.command.execute(this.game, this);
+				this.command = CommandParser.parseCommand(command);
+								
+				this.command.execute(this.game);
 				
 				if (this.update)
 					this.game.update();
@@ -72,12 +73,10 @@ public class Controller {
 				
 				if (!exit)
 					exit = game.endGame();
-				
-			}
-			
-			else {
-				
-				System.out.println("[ERROR]: Command not recognised, try again.");
+					
+			} catch (CommandParseException | CommandExecuteException ex) {
+							
+				System.out.format(ex.getMessage() + "%n%n");
 				
 			}
 			

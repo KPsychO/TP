@@ -1,6 +1,6 @@
 package p3.control;
 
-import p3.control.Controller;
+import p3.Exceptions.CommandParseException;
 
 /** Class "CommandParser":
  * 
@@ -27,19 +27,23 @@ public class CommandParser {
 	 * 	returns "NULL" if there wasn't any corresponding command to the input
 	 *  */
 	
-	public static Command parseCommand (String[] commandWords, Controller controller) {
+	public static Command parseCommand (String[] commandWords) throws CommandParseException{
 		
 		Command command;
 		int i = 0;
 		
 		do {
 			
-			command = avaliableCommands[i].parse(commandWords, controller);
+			command = avaliableCommands[i].parse(commandWords);
 			++i;
 			
 		} while (i < avaliableCommands.length && command == null);
 		
-		return command;
+		if (command != null) {
+			return command;
+		}
+		else
+			throw new CommandParseException("[Error]: Command not recognised.");
 		
 	}
 	

@@ -1,6 +1,5 @@
 package p3.control;
 
-import p3.control.Controller;
 import p3.logic.game.Game;
 
 public class ResetCommand extends NoParamsCommand{
@@ -15,7 +14,7 @@ public class ResetCommand extends NoParamsCommand{
 		
 	}
 	
-	public void execute(Game game, Controller controller) {
+	public void execute(Game game) {
 		
 		game.reset();
 		

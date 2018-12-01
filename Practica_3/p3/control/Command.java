@@ -1,6 +1,6 @@
 package p3.control;
 
-import p3.control.Controller;
+import p3.Exceptions.*;
 import p3.logic.game.Game;
 
 /** Class "Command":
@@ -18,7 +18,7 @@ public abstract class Command {
 	
 	/** Recieves the name, the symbol and the input from the user and initializes the atributes acordingly */
 	
-	public Command(String symbol, String commandInfo, String helpInfo) {
+	public Command(String symbol, String commandInfo, String helpInfo){
 		
 		this.commandSymbol = symbol;
 		this.commandText = commandInfo;
@@ -30,11 +30,11 @@ public abstract class Command {
 	
 	/** Executes the corresponding action in class "game" */
 	
-	public abstract void execute (Game game, Controller controller);
+	public abstract void execute (Game game) throws CommandExecuteException;
 	
 	/** Receives the input from the user to create a new command with the corresponding info, also assigns the controller*/
 	
-	public abstract Command parse (String[] commandWords, Controller controller);
+	public abstract Command parse (String[] commandWords) throws CommandParseException;
 	
 	/** Generates the HelpCommand output for each of the commands */
 	

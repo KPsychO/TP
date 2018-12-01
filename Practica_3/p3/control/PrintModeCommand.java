@@ -22,13 +22,13 @@ public class PrintModeCommand extends Command{
 		
 	}
 
-	public void execute(Game game, Controller controller) {
+	public void execute(Game game) {
 		
-		game.changePrintMode(controller, this.mode);
+		game.changePrintMode(this.mode);
 		
 	}
 
-	public Command parse(String[] commandWords, Controller controller) {
+	public Command parse(String[] commandWords) {
 		
 		if (commandWords.length == 2 && (commandWords[0].equals(PrintModeCommand.name) || commandWords[0].equals(PrintModeCommand.symbol))) {
 			

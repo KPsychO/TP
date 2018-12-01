@@ -1,11 +1,13 @@
 package p3.logic.game;
 
-import java.util.*; 
-import p3.logic.managers.*;
-import p3.logic.objects.*;
-import p3.logic.lists.*;
+import java.util.*;
+
+import p3.Exceptions.CommandExecuteException;
 import p3.control.*;
 import p3.factory.ZombieFactory;
+import p3.logic.lists.*;
+import p3.logic.managers.*;
+import p3.logic.objects.*;
 
 /** Class "Game":
  * 
@@ -15,6 +17,7 @@ import p3.factory.ZombieFactory;
 
 public class Game {
 	
+	private Controller controller;
 	private long seed;
 	private Random rand;
 	private int cicleCount;
@@ -229,7 +232,11 @@ public class Game {
 		
 	}
 	
-	// All the command executes
+	public void setController(Controller controller) {
+		
+		this.controller = controller;
+		
+	}
 	
 	public void AddZombie (){
 		
@@ -261,7 +268,9 @@ public class Game {
 		}
 	}
 	
-	public void addPlant(Controller controller, Plant plant) {
+	// All the command executes
+	
+	public void addPlant(Plant plant) throws CommandExecuteException {
 		
 		boolean add = true;
 		
@@ -272,7 +281,7 @@ public class Game {
 				if ((plant.getX() < 0 || plant.getX() > 6) || (plant.getY() < 0 || plant.getY() > 3)) {
 					
 					add = false;
-					System.out.println("[ERROR]: Please, choose a cell IN the board range (0-3 / 0-6).\n");
+					throw new CommandExecuteException("[ERROR]: Please, choose a cell IN the board range (0-3 / 0-6).\n");
 					
 				}
 				
@@ -283,7 +292,7 @@ public class Game {
 				if ((this.objectList.getObjectX(i) == plant.getX()) && (this.objectList.getObjectY(i) == plant.getY())) {
 					
 					add = false;
-					System.out.println("[ERROR]: Please, choose an empty cell.\n");
+					throw new CommandExecuteException("[ERROR]: Please, choose an empty cell.\n");
 					
 				}
 				
@@ -300,8 +309,8 @@ public class Game {
 					}
 					else {
 						
-						System.out.print("[ERROR]: No enought suncoins.\n");
-						controller.setNoUpdateGameState();
+						this.controller.setNoUpdateGameState();
+						throw new CommandExecuteException("[ERROR]: No enought suncoins.\n");
 						
 					}
 					
@@ -310,32 +319,33 @@ public class Game {
 			
 			else {
 				
-				controller.setNoPrintGameState();
-				controller.setNoUpdateGameState();
+				this.controller.setNoPrintGameState();
+				this.controller.setNoUpdateGameState();
+				
 			}
 		
 		}
 		
 		else {
 			
-			System.out.print("Plant name or symbol not recognised\n");
+			throw new CommandExecuteException("Plant name or symbol not recognised\n");
 			
 		}
 		
 	}
 	
-	public void exit(Controller controller) {
+	public void exit() {
 		
-		controller.setNoPrintGameState();
-		controller.setNoUpdateGameState();
-		controller.exit();
+		this.controller.setNoPrintGameState();
+		this.controller.setNoUpdateGameState();
+		this.controller.exit();
 		
 	}
 	
-	public void help (Controller controller) {
+	public void help () {
 		
-		controller.setNoPrintGameState();
-		controller.setNoUpdateGameState();
+		this.controller.setNoPrintGameState();
+		this.controller.setNoUpdateGameState();
 		System.out.println(CommandParser.commandHelp());
 		
 	}
@@ -350,27 +360,27 @@ public class Game {
 		
 	}
 	
-	public void list (Controller controller) {
+	public void list () {
 		
-		controller.setNoPrintGameState();
-		controller.setNoUpdateGameState();
+		this.controller.setNoPrintGameState();
+		this.controller.setNoUpdateGameState();
 		
 	}
 	
-	public void listZombies (Controller controller) {
+	public void listZombies () {
 		
-		controller.setNoPrintGameState();
-		controller.setNoUpdateGameState();
+		this.controller.setNoPrintGameState();
+		this.controller.setNoUpdateGameState();
 		System.out.println(ZombieFactory.listAvaliableZombies());
 		
 	}
 	
-	public void none(Controller controller) {}
+	public void none() {}
 	
-	public void changePrintMode(Controller controller, String mode){
+	public void changePrintMode(String mode){
 		
-		controller.setPrintMode(mode);
-		controller.setNoUpdateGameState();
+		this.controller.setPrintMode(mode);
+		this.controller.setNoUpdateGameState();
 		
 	}
 	

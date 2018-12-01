@@ -15,10 +15,10 @@ public class ListCommand extends NoParamsCommand{
 		
 	}
 
-	public void execute(Game game, Controller controller) {
+	public void execute(Game game) {
 
 		System.out.println(PlantFactory.listAvaliablePlants());
-		game.list(controller);
+		game.list();
 		
 	}
 	

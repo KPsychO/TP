@@ -1,7 +1,5 @@
 package p3.control;
 
-import p3.control.Controller;
-
 /** Class "NoParamsCommand":
  * 
  *		Defines the commadSymbol, commandText (name) and helpText (small command description).
@@ -20,7 +18,7 @@ public abstract class NoParamsCommand extends Command{
 	
 	/** Receives the command name and the controller, if valid, returns the new command assigning the controller */
 	
-	public Command parse (String[] commandWords, Controller controller) {
+	public Command parse (String[] commandWords) {
 		
 		if ((commandWords.length == 1) && (commandWords[0].equals(this.commandName) || commandWords[0].equals(this.commandSymbol))) {
 			

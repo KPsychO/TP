@@ -14,9 +14,9 @@ public class ListZombiesCommand extends NoParamsCommand{
 		
 	}
 
-	public void execute(Game game, Controller controller) {
+	public void execute(Game game) {
 
-		game.listZombies(controller);
+		game.listZombies();
 		
 	}
 	

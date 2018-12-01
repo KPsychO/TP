@@ -14,9 +14,9 @@ public class UpdateCommand extends NoParamsCommand{
 
 	}
 
-	public void execute(Game game, Controller controller) {
+	public void execute(Game game) {
 
-		game.none(controller);
+		game.none();
 		
 	}
 

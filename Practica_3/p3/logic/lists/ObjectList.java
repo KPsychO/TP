@@ -1,7 +1,7 @@
 package p3.logic.lists;
 
-import p3.logic.objects.*;
 import p3.logic.game.Game;
+import p3.logic.objects.*;
 
 /** Class "ObjectList":
  * 
