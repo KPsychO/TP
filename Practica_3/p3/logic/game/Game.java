@@ -2,6 +2,7 @@ package p3.logic.game;
 
 import java.util.*;
 
+import p3.Exceptions.ArgumentException;
 import p3.Exceptions.CommandExecuteException;
 import p3.control.*;
 import p3.factory.ZombieFactory;
@@ -30,25 +31,35 @@ public class Game {
 	
 	/** Assigns the starting attributes of the game.
 	 * 	takes the execution arguments and assigns the seed and difficulty
+	 * @throws ArgumentException 
 	 *  */
 	
-	public Game (String[] args){
+	public Game (String[] args) throws ArgumentException{
 		
-		if (args.length > 1) {
-			if (Long.parseLong(args[1]) != 0)
+		if (args.length == 2) {
+			
+			if(args[1].chars().allMatch(Character::isDigit)) {
+				
+				if (Long.parseLong(args[1]) != 0)
 					this.seed = Long.parseLong(args[1]);
+				else
+					this.seed = System.currentTimeMillis();
+			}
 			else
-				this.seed = System.currentTimeMillis();
+				throw new ArgumentException("[ERROR]: Seed (args[1]) must be a number.\n");
 		}
 		
-		else
+		else if (args.length == 1)
 			this.seed = System.currentTimeMillis();
+		
+		else
+			throw new ArgumentException("[ERROR]: Usage: plantsVsZombies < EASY | HARD | INSANE > [seed].\n");
 		
 		this.rand = new Random(this.seed);
 		this.cicleCount = 0;
 		this.objectList = new ObjectList(this);
 		this.SCManager = new SuncoinManager(this);
-		this.level = Level.fromParam(args[0]);
+		this.level = Level.fromParam(args[0].toUpperCase());
 		this.ZManager = new ZombieManager(this, level, this.seed);
 				
 	}
@@ -328,7 +339,7 @@ public class Game {
 		
 		else {
 			
-			throw new CommandExecuteException("Plant name or symbol not recognised\n");
+			throw new CommandExecuteException("[ERROR]: Unknown plant name or symbol. Use the command list (l) to see the avaliablePlants.\n");
 			
 		}
 		
@@ -350,7 +361,7 @@ public class Game {
 		
 	}
 	
-	public void reset() {
+	public void reset() throws ArgumentException {
 		
 		this.cicleCount = 0;
 		this.objectList = new ObjectList(this);
@@ -377,7 +388,7 @@ public class Game {
 	
 	public void none() {}
 	
-	public void changePrintMode(String mode){
+	public void changePrintMode(String mode) throws CommandExecuteException{
 		
 		this.controller.setPrintMode(mode);
 		this.controller.setNoUpdateGameState();

@@ -1,5 +1,7 @@
 package p3.logic.game;
 
+import p3.Exceptions.ArgumentException;
+
 /** Class "Level":
  * 
  *		Does... interesting... things with the given attributes. Some say that it also define the difficulty of the current game.
@@ -8,7 +10,7 @@ package p3.logic.game;
 
 public enum Level {
 	
-	EASY("easy", 3, 0.1), HARD("hard", 5, 0.2), INSANE("insane", 10, 0.3);
+	EASY("EASY", 3, 0.1), HARD("HARD", 5, 0.2), INSANE("INSANE", 10, 0.3);
 
 	private String dif;
 	private int num_zombies;
@@ -22,9 +24,10 @@ public enum Level {
 		
 	}
 	
-	/** Sets the difficulty according to the execution argument */
+	/** Sets the difficulty according to the execution argument 
+	 * @throws ArgumentException */
 	
-	public static Level fromParam(String args) {
+	public static Level fromParam(String args) throws ArgumentException {
 		
 		for (Level level : Level.values()) {
 			
@@ -33,7 +36,8 @@ public enum Level {
 			
 		}
 		
-		return null;
+		throw new ArgumentException("[ERROR]: Level (args[0]) must be one of: 'EASY', 'HARD', 'INSANE'. \n");
+		
 	}
 	
 	// getters

@@ -5,6 +5,7 @@
  *  */
 package p3.PlantsVSZombies;
 
+import p3.Exceptions.ArgumentException;
 import p3.control.Controller;
 import p3.logic.game.*;
 
@@ -12,10 +13,18 @@ public class PlantsVSZombies {
 
 	/** Well... here's where the nightmare begins... */
 	
-	public static void main(String[] args){
+	public static void main(String[] args) throws ArgumentException {
 	
-		Controller controller = new Controller(new Game(args));
-		controller.Run();
+		try {
+			
+			Controller controller = new Controller(new Game(args));
+			controller.Run();
+			
+		} catch(ArgumentException ex) {
+			
+			System.out.format(ex.getMessage() + "%n%n");
+		
+		}
 		
 	}
 	

@@ -31,7 +31,7 @@ public class Controller {
 		this.print = true;
 		this.exit = false;
 		this.update = true;
-		this.GPrinter = new RelasePrinter();
+		this.GPrinter = new ReleasePrinter();
 		
 		this.game.setController(this);
 		
@@ -108,15 +108,16 @@ public class Controller {
 		
 	}
 	
-	/** Receives the desired printing mode and assigns the new GamePrinter */
+	/** Receives the desired printing mode and assigns the new GamePrinter 
+	 * @throws CommandExecuteException */
 	
-	public void setPrintMode(String mode) {
+	public void setPrintMode(String mode) throws CommandExecuteException {
 		
 		switch (mode) {
 		
 		case "debug": case "d": this.GPrinter = new DebugPrinter(); break;
-		case "relase": case "r": this.GPrinter = new RelasePrinter(); break;
-		default: this.GPrinter = new RelasePrinter(); break;
+		case "release": case "r": this.GPrinter = new ReleasePrinter(); break;
+		default: throw new CommandExecuteException("[ERROR]: Unknown print mode. Avaliable modes are < release (r) | debug (d) >.\n");
 		
 		}
 		

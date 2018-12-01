@@ -37,11 +37,17 @@ public class AddCommand extends Command{
 		
 	}
 
-	public Command parse(String[] commandWords) {
+	public Command parse(String[] commandWords) throws CommandParseException {
 		
-		if (commandWords.length == 4 && (commandWords[0].equals(AddCommand.name) || commandWords[0].equals(AddCommand.symbol))) {
+		if ((commandWords[0].equals(AddCommand.name) || commandWords[0].equals(AddCommand.symbol))) {
 			
-			return new AddCommand(commandWords[1], Integer.valueOf(commandWords[2]), Integer.valueOf(commandWords[3]));
+			if (commandWords.length == 4) {
+			
+				return new AddCommand(commandWords[1], Integer.valueOf(commandWords[2]), Integer.valueOf(commandWords[3]));
+				
+			}
+			else 
+				throw new CommandParseException("[ERROR]: add (a) takes 3 arguments: 'plantName', 'x', 'y'.\n");
 			
 		}
 		

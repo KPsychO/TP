@@ -1,5 +1,7 @@
 package p3.control;
 
+import p3.Exceptions.CommandExecuteException;
+import p3.Exceptions.CommandParseException;
 import p3.logic.game.Game;
 
 public class PrintModeCommand extends Command{
@@ -22,17 +24,23 @@ public class PrintModeCommand extends Command{
 		
 	}
 
-	public void execute(Game game) {
+	public void execute(Game game) throws CommandExecuteException {
 		
 		game.changePrintMode(this.mode);
 		
 	}
 
-	public Command parse(String[] commandWords) {
+	public Command parse(String[] commandWords) throws CommandParseException {
 		
-		if (commandWords.length == 2 && (commandWords[0].equals(PrintModeCommand.name) || commandWords[0].equals(PrintModeCommand.symbol))) {
+		if ((commandWords[0].equals(PrintModeCommand.name) || commandWords[0].equals(PrintModeCommand.symbol))) {
 			
-			return new PrintModeCommand(commandWords[1]);
+			if (commandWords.length == 2) {
+			
+				return new PrintModeCommand(commandWords[1]);
+			
+			}
+			else
+				throw new CommandParseException("[ERROR]: print (p) takes 1 argument: 'printMode'.\n");
 			
 		}
 		

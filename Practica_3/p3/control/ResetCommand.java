@@ -1,5 +1,6 @@
 package p3.control;
 
+import p3.Exceptions.ArgumentException;
 import p3.logic.game.Game;
 
 public class ResetCommand extends NoParamsCommand{
@@ -16,7 +17,14 @@ public class ResetCommand extends NoParamsCommand{
 	
 	public void execute(Game game) {
 		
-		game.reset();
+		try {
+			game.reset();
+			
+		} catch (ArgumentException ex) {
+
+			System.out.format(ex.getMessage() + "%n%n");
+			
+		}
 		
 	}
 
