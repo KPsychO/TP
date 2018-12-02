@@ -132,5 +132,15 @@ public class PPeashooter extends Plant {
 		return a;
 		
 	}
+	
+	public String getSaveInfo() {
+		
+		String str = "";
+		
+		str += this.symbol + ":" + this.hp + ":" + this.x + ":" + this.y + ":" + "0"; 
+		
+		return str;
+		
+	}
 
 }

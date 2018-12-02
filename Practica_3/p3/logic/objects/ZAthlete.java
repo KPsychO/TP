@@ -131,4 +131,14 @@ public class ZAthlete extends Zombie{
 		
 	}
 	
+	public String getSaveInfo() {
+		
+		String str = "";
+		
+		str += this.symbol + ":" + this.hp + ":" + this.x + ":" + this.y + ":" + "0"; 
+		
+		return str;
+		
+	}
+	
 }

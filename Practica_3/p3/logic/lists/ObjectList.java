@@ -193,5 +193,11 @@ public class ObjectList {
 		this.list = aux;
 		
 	}
+	
+	public String getSaveInfo(int i) {
+		
+		return this.list[i].getSaveInfo();
+		
+	}
 
 }

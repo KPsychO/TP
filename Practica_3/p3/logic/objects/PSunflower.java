@@ -113,4 +113,14 @@ public class PSunflower extends Plant{
 		
 	}
 	
+	public String getSaveInfo() {
+		
+		String str = "";
+		
+		str += this.symbol + ":" + this.hp + ":" + this.x + ":" + this.y + ":" + (2 - ((this.freq) % 2 + 1)); 
+		
+		return str;
+		
+	}
+	
 }

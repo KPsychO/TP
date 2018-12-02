@@ -138,4 +138,14 @@ public class ZBucket extends Zombie{
 		
 	}
 	
+	public String getSaveInfo() {
+		
+		String str = "";
+		
+		str += this.symbol + ":" + this.hp + ":" + this.x + ":" + this.y + ":" + (4 - ((this.freq) % 4 + 1)); 
+		
+		return str;
+		
+	}
+	
 }

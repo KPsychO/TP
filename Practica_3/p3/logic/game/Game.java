@@ -1,6 +1,7 @@
 package p3.logic.game;
 
 import java.util.*;
+import java.io.*;
 
 import p3.Exceptions.ArgumentException;
 import p3.Exceptions.CommandExecuteException;
@@ -391,6 +392,44 @@ public class Game {
 	public void changePrintMode(String mode) throws CommandExecuteException{
 		
 		this.controller.setPrintMode(mode);
+		this.controller.setNoUpdateGameState();
+		
+	}
+	
+	public void saveState(String fileName) throws IOException {
+		
+		String str = "";
+		
+		str += "cycle: " + this.cicleCount + "\n";
+		str += "sunCoins: " + this.GetSuns() + "\n";
+		str += "level: " + this.level.GetDif() + "\n";
+		str += "remZombes: " + this.GetZombiesRemaining() + "\n";
+		str += "objectList: ";
+		
+		for (int i  = 0; i < this.objectList.getObjectCount() - 1; i++) {
+			
+			str += this.objectList.getSaveInfo(i);
+			str += ", ";
+			
+		}
+		
+		str += this.objectList.getSaveInfo(this.objectList.getObjectCount() - 1) + "\n";
+
+				
+		FileWriter fw = new FileWriter(fileName + ".dat");
+		BufferedWriter bw = new BufferedWriter(fw);
+		
+		bw.write(str);
+		
+		if (bw != null)
+			bw.close();
+		
+		if (fw != null)
+			fw.close();
+		
+		System.out.print("Data saved to: " + fileName + ".dat Use load (l) " + fileName + ".dat  to recover the saved game.\n");
+		
+		this.controller.setNoPrintGameState();
 		this.controller.setNoUpdateGameState();
 		
 	}

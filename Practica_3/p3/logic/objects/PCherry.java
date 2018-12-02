@@ -120,5 +120,15 @@ public class PCherry extends Plant {
 		return a;
 		
 	}
+	
+	public String getSaveInfo() {
+		
+		String str = "";
+		
+		str += this.symbol + ":" + this.hp + ":" + this.x + ":" + this.y + ":" + this.freq; 
+		
+		return str;
+		
+	}
 
 }
