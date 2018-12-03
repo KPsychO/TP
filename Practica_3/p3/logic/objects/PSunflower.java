@@ -27,6 +27,19 @@ public class PSunflower extends Plant{
 		this.dmg = 0;
 		
 	}
+	
+	public PSunflower (int x, int y, int hp, int freq, Game game) {
+		
+		this.x = x;
+		this.y = y;
+		this.freq = freq;
+		this.hp = hp;
+		this.game = game;
+		this.symbol = "S";
+		this.name = "sunflower";
+		this.dmg = 1;
+		
+	}
 
 	public void update() {
 

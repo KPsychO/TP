@@ -28,6 +28,15 @@ public class ZombieManager {
 		
 	}
 	
+	public ZombieManager(Game game, Level level, long seed, int newZRemaining){
+		
+		this.game = game;
+		this.zombie_to_play = newZRemaining;
+		this.rand = new Random(seed);
+		this.freq = level.GetFreq();
+		
+	}
+	
 	/** Returns the zombies remaining (zombies to appear) */
 	
 	public int GetZRemaining() {

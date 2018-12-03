@@ -419,13 +419,19 @@ public class Game {
 		FileWriter fw = new FileWriter(fileName + ".dat");
 		BufferedWriter bw = new BufferedWriter(fw);
 		
-		bw.write(str);
+		try {
 		
-		if (bw != null)
-			bw.close();
+			bw.write(str);
 		
-		if (fw != null)
-			fw.close();
+		} finally {
+		
+			if (bw != null)
+				bw.close();
+			
+			if (fw != null)
+				fw.close();
+		
+		}
 		
 		System.out.print("Data saved to: " + fileName + ".dat Use load (ld) " + fileName + ".dat  to recover the saved game.\n");
 		
@@ -438,7 +444,6 @@ public class Game {
 		
 		FileReader fr = new FileReader(fileName + ".dat");
 		BufferedReader br = new BufferedReader(fr);
-		Game gameLoaded = null;
 		
 		int newGameCycle;
 		int newGameSuncoins;
@@ -451,99 +456,97 @@ public class Game {
 		String str;
 		String[] aux;
 		
-		aux = null;
-		str = br.readLine();
-		if (str != null) {
-			
-			aux =  str.trim().split("\\s+");
-			if (aux[1].chars().allMatch(Character::isDigit)) {
-				
-				newGameCycle = Integer.valueOf(aux[1]);
-				
-			} else {
-				
-				throw new NumberFormatException("[ERROR]: Cycle value in the file" + fileName + ".dat is corrupted.\n");
-				
-			}
-			
-		} else {
-			
-			throw new LoadException("[ERROR]: File " + fileName + ".dat is corrupted (no cycle value).\n");
-			
-		}
+		try {
 		
-		aux = null;
-		str = br.readLine();
-		if (str != null) {
-			
-			aux =  str.trim().split("\\s+");
-			if (aux[1].chars().allMatch(Character::isDigit)) {
+			aux = null;
+			str = br.readLine();
+			if (str != null) {
 				
-				newGameSuncoins = Integer.valueOf(aux[1]);
-				
-			} else {
-				
-				throw new NumberFormatException("[ERROR]: Suncoins value in the file " + fileName + ".dat is corrupted.\n");
-				
-			}
-			
-		} else {
-			
-			throw new LoadException("[ERROR]: File " + fileName + ".dat is corrupted (no suncoins value).\n");
-			
-		}
-		
-		aux = null;
-		str = br.readLine();
-		if (str != null) {
-			
-			aux =  str.trim().split("\\s+");
-			newGameLevel = Level.fromParam(aux[1]);
-			
-		} else {
-			
-			throw new LoadException("[ERROR]: File " + fileName + ".dat is corrupted (no level value).\n");
-			
-		}
-		
-		aux = null;
-		str = br.readLine();
-		if (str != null) {
-			
-			aux =  str.trim().split("\\s+");
-			if (aux[1].chars().allMatch(Character::isDigit)) {
-				
-				newGameRemZombies = Integer.valueOf(aux[1]);
-				
-			} else {
-				
-				throw new NumberFormatException("[ERROR]: remZombies value in the file " + fileName + ".dat is corrupted.\n");
-				
-			}
-			
-		} else {
-			
-			throw new LoadException("[ERROR]: File " + fileName + ".dat is corrupted (no remZombies value).\n");
-			
-		}
-		
-		aux = null;
-		str = br.readLine();
-		if (str != null) {
-			
-			aux =  str.trim().split("\\s+");
-			String[] objectInfo = null;
-			for (int i = 1; i < aux.length; i++) {
-				
-				objectInfo = aux[i].trim().replaceAll(",", "").split(":");
-				
-				if (objectInfo[1].chars().allMatch(Character::isDigit) || (objectInfo[2].chars().allMatch(Character::isDigit)) || (objectInfo[3].chars().allMatch(Character::isDigit)) || (objectInfo[4].chars().allMatch(Character::isDigit))) {
-				
-					switch (objectInfo[0]) {
+				aux =  str.trim().split("\\s+");
+				if (aux[1].chars().allMatch(Character::isDigit)) {
 					
-					case "S": case "P": case "N": case "C": 
-						
-						if ((Integer.valueOf(objectInfo[2]) < 0 || Integer.valueOf(objectInfo[2]) > 6) || (Integer.valueOf(objectInfo[3]) < 0 || Integer.valueOf(objectInfo[3]) > 3)) {
+					newGameCycle = Integer.valueOf(aux[1]);
+					
+				} else {
+					
+					throw new NumberFormatException("[ERROR]: Cycle value in the file" + fileName + ".dat is corrupted.\n");
+					
+				}
+				
+			} else {
+				
+				throw new LoadException("[ERROR]: File " + fileName + ".dat is corrupted (no cycle value).\n");
+				
+			}
+			
+			aux = null;
+			str = br.readLine();
+			if (str != null) {
+				
+				aux =  str.trim().split("\\s+");
+				if (aux[1].chars().allMatch(Character::isDigit)) {
+					
+					newGameSuncoins = Integer.valueOf(aux[1]);
+					
+				} else {
+					
+					throw new NumberFormatException("[ERROR]: Suncoins value in the file " + fileName + ".dat is corrupted.\n");
+					
+				}
+				
+			} else {
+				
+				throw new LoadException("[ERROR]: File " + fileName + ".dat is corrupted (no suncoins value).\n");
+				
+			}
+			
+			aux = null;
+			str = br.readLine();
+			if (str != null) {
+				
+				aux =  str.trim().split("\\s+");
+				newGameLevel = Level.fromParam(aux[1]);
+				
+			} else {
+				
+				throw new LoadException("[ERROR]: File " + fileName + ".dat is corrupted (no level value).\n");
+				
+			}
+			
+			aux = null;
+			str = br.readLine();
+			if (str != null) {
+				
+				aux =  str.trim().split("\\s+");
+				if (aux[1].chars().allMatch(Character::isDigit)) {
+					
+					newGameRemZombies = Integer.valueOf(aux[1]);
+					
+				} else {
+					
+					throw new NumberFormatException("[ERROR]: remZombies value in the file " + fileName + ".dat is corrupted.\n");
+					
+				}
+				
+			} else {
+				
+				throw new LoadException("[ERROR]: File " + fileName + ".dat is corrupted (no remZombies value).\n");
+				
+			}
+			
+			aux = null;
+			str = br.readLine();
+			if (str != null) {
+				
+				aux =  str.trim().split("\\s+");
+				String[] objectInfo = null;
+				for (int i = 1; i < aux.length; i++) {
+					
+					objectInfo = aux[i].trim().replaceAll(",", "").split(":");
+					
+					if (objectInfo[1].chars().allMatch(Character::isDigit) || (objectInfo[2].chars().allMatch(Character::isDigit)) || (objectInfo[3].chars().allMatch(Character::isDigit)) || (objectInfo[4].chars().allMatch(Character::isDigit))) {
+					
+						if ((Integer.valueOf(objectInfo[2]) < 0 || Integer.valueOf(objectInfo[2]) > 7) || (Integer.valueOf(objectInfo[3]) < 0 || Integer.valueOf(objectInfo[3]) > 3)) {
 							
 							throw new LoadException("[ERROR]: objectList in file " + fileName + ".dat contains an object out of the board.\n");
 							
@@ -552,47 +555,80 @@ public class Game {
 						for (int j = 0; j < newGameObjectCount; j++) {
 							
 							if ((newGameObjectList[j].getX() == Integer.valueOf(objectInfo[2])) && (newGameObjectList[j].getY() == Integer.valueOf(objectInfo[3]))) {
-
+	
 								throw new CommandExecuteException("[ERROR]: objectList in file " + fileName + ".dat constains 2 elements in the same position.\n");
 								
 							}
 							
 						}
-
-						Plant plant = PlantFactory.getPlant(objectInfo[0], Integer.valueOf(objectInfo[2]), Integer.valueOf(objectInfo[3]), this);
-						if(plant != null) {
-							newGameObjectList[i - 1] = plant;
-							newGameObjectCount++;	
-						}
-						else
-							throw new LoadException("[ERROR]: objectList in file " + fileName + ".dat constains an unknown plant.\n");
 						
+						switch (objectInfo[0]) {
+						
+						case "S": case "P": case "N": case "C": 
+	
+							Plant plant = PlantFactory.loadPlant(objectInfo[0], Integer.valueOf(objectInfo[2]), Integer.valueOf(objectInfo[3]), Integer.valueOf(objectInfo[1]), Integer.valueOf(objectInfo[4]), this);
+							if(plant != null) {
+								newGameObjectList[i - 1] = plant;
+								newGameObjectCount++;	
+							}
+							else
+								throw new LoadException("[ERROR]: objectList in file " + fileName + ".dat constains an unknown plant.\n");
 							
-						break;
-					
-					case "Z": case "X": case "W":
-						break;
-
-					default: throw new LoadException("[ERROR]: objectList values in the file " + fileName + ".dat are corrupted (symbol not recognised).\n");
-					
+							break;
+						
+						case "Z": case "X": case "W":
+							
+							Zombie zombie = ZombieFactory.loadZombie(objectInfo[0], Integer.valueOf(objectInfo[2]), Integer.valueOf(objectInfo[3]), Integer.valueOf(objectInfo[1]), Integer.valueOf(objectInfo[4]), this);
+							if(zombie != null) {
+								newGameObjectList[i - 1] = zombie;
+								newGameObjectCount++;	
+							}
+							else
+								throw new LoadException("[ERROR]: objectList in file " + fileName + ".dat constains an unknown plant.\n");
+							
+							break;
+	
+						default: throw new LoadException("[ERROR]: objectList values in the file " + fileName + ".dat are corrupted (symbol not recognised).\n");
+						
+						}
+						
+					} else {
+						
+						throw new NumberFormatException("[ERROR]: objectList values in the file " + fileName + ".dat are corrupted (objectPosition is not an Integer).\n");
+						
 					}
-					
-				} else {
-					
-					throw new NumberFormatException("[ERROR]: objectList values in the file " + fileName + ".dat are corrupted (objectPosition is not an Integer).\n");
 					
 				}
 				
+			} else {
+				
+				throw new LoadException("[ERROR]: File " + fileName + ".dat is corrupted (no objectList).\n");
+				
 			}
+		
+		} finally {
+				
+			if (br != null)
+				br.close();
 			
-		} else {
-			
-			throw new LoadException("[ERROR]: File " + fileName + ".dat is corrupted (no objectList).\n");
-			
+			if (fr != null)
+				fr.close();
+		
 		}
 		
 		this.controller.setNoUpdateGameState();
-			
+	//	this.controller.setNoPrintGameState();
+		
+		this.cycleCount = newGameCycle;
+		this.objectList = new ObjectList(this);
+		this.objectList.loadObjects(newGameObjectList, newGameObjectCount);
+		this.SCManager = new SuncoinManager(this, newGameSuncoins);
+		this.level = newGameLevel;
+		this.ZManager = new ZombieManager(this, level, this.seed, newGameRemZombies);
+		
+		System.out.print("Game sucesfully loaded from file " + fileName + ".dat, enjoy!\n");
+		System.out.print("##############################################################################\n");
+				
 	}
 	
 }

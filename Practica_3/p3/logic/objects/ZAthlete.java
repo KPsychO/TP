@@ -24,6 +24,18 @@ public class ZAthlete extends Zombie{
 		
 	}
 	
+	public ZAthlete(int x, int y, int hp, int freq, Game game){
+		
+		this.game = game;
+		this.hp = hp;
+		this.dmg = 1;
+		this.freq = freq;
+		this.x = x;
+		this.y = y;
+		this.symbol = "X";
+		
+	}
+	
 	public void update() {
 		
 		boolean empty = true;

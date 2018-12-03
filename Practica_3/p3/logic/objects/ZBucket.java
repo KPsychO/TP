@@ -24,6 +24,18 @@ public class ZBucket extends Zombie{
 		
 	}
 	
+	public ZBucket(int x, int y, int hp, int freq, Game game){
+		
+		this.game = game;
+		this.hp = hp;
+		this.dmg = 1;
+		this.freq = freq;
+		this.x = x;
+		this.y = y;
+		this.symbol = "W";
+		
+	}
+	
 	public void update() {
 		
 		boolean empty = true;

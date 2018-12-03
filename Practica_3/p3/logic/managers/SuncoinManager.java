@@ -22,6 +22,13 @@ public class SuncoinManager {
 		
 	}
 	
+	public SuncoinManager(Game game, int sunCoins){
+		
+		this.game = game;
+		this.suns = sunCoins;		
+		
+	}
+	
 	// getters
 	
 	public int GetSuns(){

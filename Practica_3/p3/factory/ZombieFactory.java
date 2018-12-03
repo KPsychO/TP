@@ -22,11 +22,27 @@ public class ZombieFactory {
 		
 		Zombie zombie = null;
 		
-		switch (zombieSymbol) {
+		switch (zombieSymbol.toUpperCase()) {
 		
 		case "Z": zombie = new ZNormal(y, i, game); break;
 		case "X": zombie = new ZAthlete(y, i, game); break;
 		case "W": zombie = new ZBucket(y, i, game); break;
+		
+		}
+		
+		return zombie;
+		
+	}
+	
+	public static Zombie loadZombie(String zombieSymbol, int x, int y, int hp, int freq, Game game) {
+		
+		Zombie zombie = null;
+		
+		switch (zombieSymbol.toUpperCase()) {
+		
+		case "Z": zombie = new ZNormal(x, y, hp, freq, game); break;
+		case "X": zombie = new ZAthlete(x, y, hp, freq, game); break;
+		case "W": zombie = new ZBucket(x, y, hp, freq, game); break;
 		
 		}
 		

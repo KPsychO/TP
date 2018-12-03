@@ -27,6 +27,19 @@ public class PCherry extends Plant {
 		this.dmg = 10;
 		
 	}
+	
+	public PCherry (int x, int y, int hp, int freq, Game game) {
+		
+		this.x = x;
+		this.y = y;
+		this.freq = freq;
+		this.hp = hp;
+		this.game = game;
+		this.symbol = "C";
+		this.name = "cherry";
+		this.dmg = 1;
+		
+	}
 
 	public void decreaseHP(int dmg) {
 

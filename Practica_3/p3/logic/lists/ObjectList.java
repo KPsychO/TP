@@ -160,6 +160,20 @@ public class ObjectList {
 		
 	}
 	
+	public void loadObjects(GameObject[] newObjectList, int newObjectCount) {
+		
+		for (int i = 0; i < newObjectCount; i++) {
+			
+			if(this.object_count == (this.capacity - 1))
+				resize();
+			
+			this.list[i] = newObjectList[i];
+			this.object_count++;
+			
+		}
+		
+	}
+	
 	/** Increases the capacity by 4 */
 	
 	public void resize() {
