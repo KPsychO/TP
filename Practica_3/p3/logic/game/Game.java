@@ -3,9 +3,9 @@ package p3.logic.game;
 import java.util.*;
 import java.io.*;
 
-import p3.Exceptions.ArgumentException;
-import p3.Exceptions.CommandExecuteException;
+import p3.Exceptions.*;
 import p3.control.*;
+import p3.factory.PlantFactory;
 import p3.factory.ZombieFactory;
 import p3.logic.lists.*;
 import p3.logic.managers.*;
@@ -22,7 +22,7 @@ public class Game {
 	private Controller controller;
 	private long seed;
 	private Random rand;
-	private int cicleCount;
+	private int cycleCount;
 	private ObjectList objectList;
 	private SuncoinManager SCManager;
 	private ZombieManager ZManager;
@@ -47,7 +47,7 @@ public class Game {
 					this.seed = System.currentTimeMillis();
 			}
 			else
-				throw new ArgumentException("[ERROR]: Seed (args[1]) must be a number.\n");
+				throw new NumberFormatException("[ERROR]: Seed (args[1]) must be a number.\n");
 		}
 		
 		else if (args.length == 1)
@@ -57,7 +57,7 @@ public class Game {
 			throw new ArgumentException("[ERROR]: Usage: plantsVsZombies < EASY | HARD | INSANE > [seed].\n");
 		
 		this.rand = new Random(this.seed);
-		this.cicleCount = 0;
+		this.cycleCount = 0;
 		this.objectList = new ObjectList(this);
 		this.SCManager = new SuncoinManager(this);
 		this.level = Level.fromParam(args[0].toUpperCase());
@@ -81,7 +81,7 @@ public class Game {
 		if (this.GetCurrentCicle() == 0)
 			System.out.println("Seed : " + this.seed);
 
-		this.cicleCount++;
+		this.cycleCount++;
 
 	}
 	
@@ -240,7 +240,7 @@ public class Game {
 	
 	public int GetCurrentCicle(){
 		
-		return this.cicleCount;
+		return this.cycleCount;
 		
 	}
 	
@@ -364,7 +364,7 @@ public class Game {
 	
 	public void reset() throws ArgumentException {
 		
-		this.cicleCount = 0;
+		this.cycleCount = 0;
 		this.objectList = new ObjectList(this);
 		this.SCManager = new SuncoinManager(this);
 		this.level = Level.fromParam(this.GetDif());
@@ -400,7 +400,7 @@ public class Game {
 		
 		String str = "";
 		
-		str += "cycle: " + this.cicleCount + "\n";
+		str += "cycle: " + this.cycleCount + "\n";
 		str += "sunCoins: " + this.GetSuns() + "\n";
 		str += "level: " + this.level.GetDif() + "\n";
 		str += "remZombes: " + this.GetZombiesRemaining() + "\n";
@@ -427,11 +427,172 @@ public class Game {
 		if (fw != null)
 			fw.close();
 		
-		System.out.print("Data saved to: " + fileName + ".dat Use load (l) " + fileName + ".dat  to recover the saved game.\n");
+		System.out.print("Data saved to: " + fileName + ".dat Use load (ld) " + fileName + ".dat  to recover the saved game.\n");
 		
 		this.controller.setNoPrintGameState();
 		this.controller.setNoUpdateGameState();
 		
+	}
+	
+	public void loadState(String fileName) throws IOException, LoadException, ArgumentException, CommandExecuteException {
+		
+		FileReader fr = new FileReader(fileName + ".dat");
+		BufferedReader br = new BufferedReader(fr);
+		Game gameLoaded = null;
+		
+		int newGameCycle;
+		int newGameSuncoins;
+		Level newGameLevel;
+		int newGameRemZombies;
+		GameObject[] newGameObjectList;
+		newGameObjectList = new GameObject[32];
+		int newGameObjectCount = 0;
+		
+		String str;
+		String[] aux;
+		
+		aux = null;
+		str = br.readLine();
+		if (str != null) {
+			
+			aux =  str.trim().split("\\s+");
+			if (aux[1].chars().allMatch(Character::isDigit)) {
+				
+				newGameCycle = Integer.valueOf(aux[1]);
+				
+			} else {
+				
+				throw new NumberFormatException("[ERROR]: Cycle value in the file" + fileName + ".dat is corrupted.\n");
+				
+			}
+			
+		} else {
+			
+			throw new LoadException("[ERROR]: File " + fileName + ".dat is corrupted (no cycle value).\n");
+			
+		}
+		
+		aux = null;
+		str = br.readLine();
+		if (str != null) {
+			
+			aux =  str.trim().split("\\s+");
+			if (aux[1].chars().allMatch(Character::isDigit)) {
+				
+				newGameSuncoins = Integer.valueOf(aux[1]);
+				
+			} else {
+				
+				throw new NumberFormatException("[ERROR]: Suncoins value in the file " + fileName + ".dat is corrupted.\n");
+				
+			}
+			
+		} else {
+			
+			throw new LoadException("[ERROR]: File " + fileName + ".dat is corrupted (no suncoins value).\n");
+			
+		}
+		
+		aux = null;
+		str = br.readLine();
+		if (str != null) {
+			
+			aux =  str.trim().split("\\s+");
+			newGameLevel = Level.fromParam(aux[1]);
+			
+		} else {
+			
+			throw new LoadException("[ERROR]: File " + fileName + ".dat is corrupted (no level value).\n");
+			
+		}
+		
+		aux = null;
+		str = br.readLine();
+		if (str != null) {
+			
+			aux =  str.trim().split("\\s+");
+			if (aux[1].chars().allMatch(Character::isDigit)) {
+				
+				newGameRemZombies = Integer.valueOf(aux[1]);
+				
+			} else {
+				
+				throw new NumberFormatException("[ERROR]: remZombies value in the file " + fileName + ".dat is corrupted.\n");
+				
+			}
+			
+		} else {
+			
+			throw new LoadException("[ERROR]: File " + fileName + ".dat is corrupted (no remZombies value).\n");
+			
+		}
+		
+		aux = null;
+		str = br.readLine();
+		if (str != null) {
+			
+			aux =  str.trim().split("\\s+");
+			String[] objectInfo = null;
+			for (int i = 1; i < aux.length; i++) {
+				
+				objectInfo = aux[i].trim().replaceAll(",", "").split(":");
+				
+				if (objectInfo[1].chars().allMatch(Character::isDigit) || (objectInfo[2].chars().allMatch(Character::isDigit)) || (objectInfo[3].chars().allMatch(Character::isDigit)) || (objectInfo[4].chars().allMatch(Character::isDigit))) {
+				
+					switch (objectInfo[0]) {
+					
+					case "S": case "P": case "N": case "C": 
+						
+						if ((Integer.valueOf(objectInfo[2]) < 0 || Integer.valueOf(objectInfo[2]) > 6) || (Integer.valueOf(objectInfo[3]) < 0 || Integer.valueOf(objectInfo[3]) > 3)) {
+							
+							throw new LoadException("[ERROR]: objectList in file " + fileName + ".dat contains an object out of the board.\n");
+							
+						}
+						
+						for (int j = 0; j < newGameObjectCount; j++) {
+							
+							if ((newGameObjectList[j].getX() == Integer.valueOf(objectInfo[2])) && (newGameObjectList[j].getY() == Integer.valueOf(objectInfo[3]))) {
+
+								throw new CommandExecuteException("[ERROR]: objectList in file " + fileName + ".dat constains 2 elements in the same position.\n");
+								
+							}
+							
+						}
+
+						Plant plant = PlantFactory.getPlant(objectInfo[0], Integer.valueOf(objectInfo[2]), Integer.valueOf(objectInfo[3]), this);
+						if(plant != null) {
+							newGameObjectList[i - 1] = plant;
+							newGameObjectCount++;	
+						}
+						else
+							throw new LoadException("[ERROR]: objectList in file " + fileName + ".dat constains an unknown plant.\n");
+						
+							
+						break;
+					
+					case "Z": case "X": case "W":
+						break;
+
+					default: throw new LoadException("[ERROR]: objectList values in the file " + fileName + ".dat are corrupted (symbol not recognised).\n");
+					
+					}
+					
+				} else {
+					
+					throw new NumberFormatException("[ERROR]: objectList values in the file " + fileName + ".dat are corrupted (objectPosition is not an Integer).\n");
+					
+				}
+				
+			}
+			
+		} else {
+			
+			throw new LoadException("[ERROR]: File " + fileName + ".dat is corrupted (no objectList).\n");
+			
+		}
+		
+		this.controller.setNoUpdateGameState();
+			
 	}
 	
 }

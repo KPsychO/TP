@@ -15,13 +15,13 @@ public class SaveCommand extends Command{
 
 	public SaveCommand() {
 		
-		super(PrintModeCommand.symbol, PrintModeCommand.name, PrintModeCommand.help);
+		super(SaveCommand.symbol, SaveCommand.name, SaveCommand.help);
 		
 	}
 	
 	public SaveCommand(String fileName) {
 
-		super(PrintModeCommand.symbol, PrintModeCommand.name, PrintModeCommand.help);
+		super(SaveCommand.symbol, SaveCommand.name, SaveCommand.help);
 		this.fileName = fileName;
 		
 	}

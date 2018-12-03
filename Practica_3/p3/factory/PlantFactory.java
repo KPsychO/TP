@@ -31,7 +31,7 @@ public class PlantFactory {
 		
 		Plant plant = null;
 		
-		switch (plantName) {
+		switch (plantName.toLowerCase()) {
 		
 		case "peashooter": case "p": plant = new PPeashooter(x, y, game); break;
 		case "sunflower": case "s": plant = new PSunflower(x, y, game); break;

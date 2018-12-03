@@ -21,7 +21,8 @@ public class CommandParser {
 			new ExitCommand(),
 			new UpdateCommand(),
 			new PrintModeCommand(),
-			new SaveCommand()
+			new SaveCommand(),
+			new LoadCommand()
 		};
 	
 	/** Receives the user input and creates the new command by using the function parse on each of them
