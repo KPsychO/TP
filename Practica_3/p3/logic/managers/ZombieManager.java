@@ -28,6 +28,8 @@ public class ZombieManager {
 		
 	}
 	
+	/** Creates a new ZombieManager with the given values. */
+	
 	public ZombieManager(Game game, Level level, long seed, int newZRemaining){
 		
 		this.game = game;

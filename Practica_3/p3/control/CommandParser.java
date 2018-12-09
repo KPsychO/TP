@@ -26,7 +26,7 @@ public class CommandParser {
 		};
 	
 	/** Receives the user input and creates the new command by using the function parse on each of them
-	 * 	returns "NULL" if there wasn't any corresponding command to the input
+	 * 	@throws CommandParseException if there wasn't any corresponding command to the input.
 	 *  */
 	
 	public static Command parseCommand (String[] commandWords) throws CommandParseException{

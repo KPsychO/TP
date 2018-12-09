@@ -396,10 +396,15 @@ public class Game {
 		
 	}
 	
+	/** Method used to save the current game state in the specified file.
+	 * 	@throws IOException if there's any problem while trying to create the file.
+	 * */
+
 	public void saveState(String fileName) throws IOException {
 		
 		String str = "";
 		
+		str += "// PlantsVsZombies v3.0\n\n";
 		str += "cycle: " + this.cycleCount + "\n";
 		str += "sunCoins: " + this.GetSuns() + "\n";
 		str += "level: " + this.level.GetDif() + "\n";
@@ -413,7 +418,8 @@ public class Game {
 			
 		}
 		
-		str += this.objectList.getSaveInfo(this.objectList.getObjectCount() - 1) + "\n";
+		if (this.objectList.getObjectCount() - 1 > 0)
+			str += this.objectList.getSaveInfo(this.objectList.getObjectCount() - 1) + "\n";
 
 				
 		FileWriter fw = new FileWriter(fileName + ".dat");
@@ -433,14 +439,21 @@ public class Game {
 		
 		}
 		
-		System.out.print("Data saved to: " + fileName + ".dat Use load (ld) " + fileName + ".dat  to recover the saved game.\n");
+		System.out.print("Data saved to: " + fileName + ".dat Use load (ld) " + fileName + " to recover the saved game.\n");
 		
 		this.controller.setNoPrintGameState();
 		this.controller.setNoUpdateGameState();
 		
 	}
 	
-	public void loadState(String fileName) throws IOException, LoadException, ArgumentException, CommandExecuteException {
+	/**	Method used to load a game from a specified file.
+	 * 	It makes all the necessary checks in order to avoid trying to load corrupted games or files.
+	 * 	It never loads half a game, we create a kind of temporal and spatial vortex where we load the game, check all the possible things that could bring you to a problem, and only when everythin is OK, we change the current game values.
+	 * 	Does NOT alter the seed and Random values.
+	 * 	@throws IOException, LoadException and ArgumentException
+	 * */
+	
+	public void loadState(String fileName) throws IOException, LoadException, ArgumentException {
 		
 		FileReader fr = new FileReader(fileName + ".dat");
 		BufferedReader br = new BufferedReader(fr);
@@ -457,6 +470,9 @@ public class Game {
 		String[] aux;
 		
 		try {
+			
+			str = br.readLine();
+			str = br.readLine();
 		
 			aux = null;
 			str = br.readLine();
@@ -465,7 +481,10 @@ public class Game {
 				aux =  str.trim().split("\\s+");
 				if (aux[1].chars().allMatch(Character::isDigit)) {
 					
-					newGameCycle = Integer.valueOf(aux[1]);
+					if (Integer.valueOf(aux[1]) >= 0)
+						newGameCycle = Integer.valueOf(aux[1]);
+					else
+						throw new LoadException("[ERROR]: File " + fileName + ".dat is corrupted (negative cycle value).\n");
 					
 				} else {
 					
@@ -556,7 +575,7 @@ public class Game {
 							
 							if ((newGameObjectList[j].getX() == Integer.valueOf(objectInfo[2])) && (newGameObjectList[j].getY() == Integer.valueOf(objectInfo[3]))) {
 	
-								throw new CommandExecuteException("[ERROR]: objectList in file " + fileName + ".dat constains 2 elements in the same position.\n");
+								throw new ArgumentException ("[ERROR]: objectList in file " + fileName + ".dat constains 2 elements in the same position.\n");
 								
 							}
 							
@@ -584,7 +603,7 @@ public class Game {
 								newGameObjectCount++;	
 							}
 							else
-								throw new LoadException("[ERROR]: objectList in file " + fileName + ".dat constains an unknown plant.\n");
+								throw new LoadException("[ERROR]: objectList in file " + fileName + ".dat constains an unknown zombie.\n");
 							
 							break;
 	
@@ -617,7 +636,6 @@ public class Game {
 		}
 		
 		this.controller.setNoUpdateGameState();
-	//	this.controller.setNoPrintGameState();
 		
 		this.cycleCount = newGameCycle;
 		this.objectList = new ObjectList(this);

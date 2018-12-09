@@ -6,6 +6,7 @@ import p3.logic.game.Game;
 /** Class "Command":
  * 
  *		Defines the commadSymbol, commandText (name), helpText (small command description), and the command text (parameters).
+ *		@throws CommandExecuteException and CommandParseException if needed.
  *
  *  */
 

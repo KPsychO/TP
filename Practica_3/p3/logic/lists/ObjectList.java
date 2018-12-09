@@ -160,6 +160,8 @@ public class ObjectList {
 		
 	}
 	
+	/** Receives an existing objecList and copies it to the game objectList */
+	
 	public void loadObjects(GameObject[] newObjectList, int newObjectCount) {
 		
 		for (int i = 0; i < newObjectCount; i++) {

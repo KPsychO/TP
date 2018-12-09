@@ -5,7 +5,7 @@ import p3.logic.objects.*;
 
 /** Class "ZombieFactory":
  * 
- *		creates zombies
+ *		creates zombies.
  *		works as "PlantFactory"
  *
  *  */

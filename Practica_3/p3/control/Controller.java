@@ -74,7 +74,7 @@ public class Controller {
 				if (!exit)
 					exit = game.endGame();
 					
-			} catch (CommandParseException | CommandExecuteException ex) {
+			} catch (CommandParseException | CommandExecuteException | NumberFormatException ex) {
 							
 				System.out.format(ex.getMessage() + "%n%n");
 				

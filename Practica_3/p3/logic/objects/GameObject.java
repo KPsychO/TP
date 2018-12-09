@@ -43,6 +43,9 @@ public abstract class GameObject {
 	public abstract int getX();
 	public abstract int getY();
 	public abstract int getHP();
+	
+	/** Method use to gather the info we save about each of the objects in the currrent game. */
+	
 	public abstract String getSaveInfo();
 	
 }

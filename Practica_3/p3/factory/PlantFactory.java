@@ -44,6 +44,10 @@ public class PlantFactory {
 		
 	}
 	
+	/** Recieves the plant position, hp, current frequency and game and creates it.
+	 * 	Used while loading a game from a file.
+	 * */
+	
 	public static Plant loadPlant(String plantName, int x, int y, int hp, int freq, Game game) {
 		
 		Plant plant = null;

@@ -37,13 +37,21 @@ public class AddCommand extends Command{
 		
 	}
 
-	public Command parse(String[] commandWords) throws CommandParseException {
+	public Command parse(String[] commandWords) throws CommandParseException, NumberFormatException {
 		
 		if ((commandWords[0].equals(AddCommand.name) || commandWords[0].equals(AddCommand.symbol))) {
 			
 			if (commandWords.length == 4) {
-			
-				return new AddCommand(commandWords[1], Integer.valueOf(commandWords[2]), Integer.valueOf(commandWords[3]));
+				
+				if (commandWords[2].chars().allMatch(Character::isDigit) && commandWords[3].chars().allMatch(Character::isDigit)) {
+					
+					return new AddCommand(commandWords[1], Integer.valueOf(commandWords[2]), Integer.valueOf(commandWords[3]));
+					
+				} else {
+					
+					throw new NumberFormatException("[ERROR]: Params for the addComand must be < String plantName|symbol, int x, int y >.\n");
+					
+				}
 				
 			}
 			else 
